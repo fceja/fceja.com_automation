@@ -1,0 +1,19 @@
+{
+  "name": "fceja_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/selenium-webdriver": "^4.1.16",
+    "selenium-webdriver": "^4.12.0"
+  }
+}
