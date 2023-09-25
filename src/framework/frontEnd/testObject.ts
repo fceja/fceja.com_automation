@@ -1,7 +1,12 @@
 import { Builder, WebDriver } from "selenium-webdriver";
 
-export async function initWebDriver() {
-  const driver: WebDriver = await new Builder().forBrowser("chrome").build();
+interface TestObjectInterface {
+  driver: WebDriver;
+}
+export class TestObject implements TestObjectInterface {
+  driver: WebDriver;
 
-  return driver;
+  constructor() {
+    this.driver = new Builder().forBrowser("chrome").build();
+  }
 }
