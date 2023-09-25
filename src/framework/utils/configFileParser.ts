@@ -1,5 +1,5 @@
 import fs from "fs";
-import * as consoleTextColors from "./consoleTextColors";
+import addColorCodeToString from "./consoleTextColors";
 
 interface ConfigJsonData {
   browserName: string;
@@ -56,7 +56,12 @@ export default class ConfigFileParser {
 
     // validate 'CONFIG_FILE_PATH_ARG' arg was set in cli command
     if (!configFilePathArg) {
-      throw Error("Please set 'CONFIG_FILE_PATH_ARG' in CLI command");
+      throw Error(
+        `${addColorCodeToString(
+          "red",
+          "Please provide 'CONFIG_FILE_PATH_ARG' command line argument"
+        )}`
+      );
     }
 
     // store config file path
@@ -65,8 +70,13 @@ export default class ConfigFileParser {
     // validate file exists
     if (!fs.existsSync(this.CONFIG_FILE_PATH)) {
       throw Error(
-        `${consoleTextColors.RED}Provided file path does not exist.${consoleTextColors.RESET}` +
-          `\n${consoleTextColors.MAGENTA}CONFIG_FILE_PATH_ARG${consoleTextColors.RESET} -> '${this.CONFIG_FILE_PATH}'`
+        `${addColorCodeToString(
+          "red",
+          "Provided config file path does not exist"
+        )}` +
+          `\n${addColorCodeToString("magenta", "CONFIG_FILE_PATH_ARG")} -> '${
+            this.CONFIG_FILE_PATH
+          }'`
       );
     }
   }

@@ -1,7 +1,29 @@
-export const RED = "\x1b[31m";
-export const GREEN = "\x1b[32m";
-export const YELLOW = "\x1b[33m";
-export const BLUE = "\x1b[34m";
-export const MAGENTA = "\x1b[35m";
-export const CYAN = "\x1b[36m";
-export const RESET = "\x1b[0m";
+const COLOR_CODES: { [key: string]: string } = {
+  RED: "\x1b[31m",
+  GREEN: "\x1b[32m",
+  YELLOW: "\x1b[33m",
+  BLUE: "\x1b[34m",
+  MAGENTA: "\x1b[35m",
+  CYAN: "\x1b[36m",
+};
+
+const RESET = "\x1b[0m";
+
+export default function addColorCodeToString(
+  color: string,
+  inputString: string
+) {
+  /*
+   * - Wraps a string with color code for terminal output.
+   * - It uses the following format -> `{color}{inputString}{reset}`
+   * - note:
+   *    - {color} identifies the start of color application for text in terminal
+   *    - {reset} identifies the end of color application for text in terminal
+   *    - if {color} is applied and {reset} is not, all terminal text after start point will have color applied
+   */
+  const wrappedString = `${
+    COLOR_CODES[color.toUpperCase()]
+  }${inputString}${RESET}`;
+
+  return wrappedString;
+}
