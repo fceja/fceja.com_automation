@@ -6,9 +6,11 @@ class FirstTest extends TestObject {
   }
 
   async main() {
-    await firstTest.driver.get("https://google.com");
+    await firstTest.webDriver.get("https://google.com");
 
     await firstTest.tearDown();
+
+    this.logger.info("...done");
   }
 }
 

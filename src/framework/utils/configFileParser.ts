@@ -3,6 +3,7 @@ import * as consoleTextColors from "./consoleTextColors";
 
 interface ConfigJsonData {
   browserName: string;
+  logLevel: string;
 }
 
 export default class ConfigFileParser {
@@ -13,6 +14,7 @@ export default class ConfigFileParser {
   CONFIG_FILE_PATH = "";
   CONFIG_JSON_DATA: ConfigJsonData = {
     browserName: "",
+    logLevel: "",
   };
 
   constructor() {
@@ -63,8 +65,8 @@ export default class ConfigFileParser {
     // validate file exists
     if (!fs.existsSync(this.CONFIG_FILE_PATH)) {
       throw Error(
-        `${consoleTextColors.RED}Provided file path does not exist.${consoleTextColors.RESET}\
-        \n${consoleTextColors.MAGENTA}CONFIG_FILE_PATH_ARG${consoleTextColors.RESET} -> ${this.CONFIG_FILE_PATH}\n`
+        `${consoleTextColors.RED}Provided file path does not exist.${consoleTextColors.RESET}` +
+          `\n${consoleTextColors.MAGENTA}CONFIG_FILE_PATH_ARG${consoleTextColors.RESET} -> '${this.CONFIG_FILE_PATH}'`
       );
     }
   }

@@ -1,13 +1,15 @@
 import { Builder, WebDriver } from "selenium-webdriver";
 
 import ConfigFileParser from "../utils/configFileParser";
+import Logger from "../utils/logger";
 
 interface TestObjectInterface {
-  driver: WebDriver;
+  webDriver: WebDriver;
 }
 export class TestObject implements TestObjectInterface {
-  configFile!: ConfigFileParser;
-  driver!: WebDriver;
+  config!: ConfigFileParser;
+  webDriver!: WebDriver;
+  logger!: Logger;
 
   constructor() {
     this.startUp();
@@ -15,20 +17,25 @@ export class TestObject implements TestObjectInterface {
 
   startUp() {
     this.initConfigFile();
-    this.initDriver();
+    this.initWebDriver();
+    this.initLogger();
   }
 
   tearDown() {
-    this.driver.quit();
+    this.webDriver.quit();
   }
 
   initConfigFile() {
-    this.configFile = new ConfigFileParser();
+    this.config = new ConfigFileParser();
   }
 
-  initDriver() {
-    this.driver = new Builder()
-      .forBrowser(this.configFile.CONFIG_JSON_DATA.browserName)
+  initWebDriver() {
+    this.webDriver = new Builder()
+      .forBrowser(this.config.CONFIG_JSON_DATA.browserName)
       .build();
+  }
+
+  initLogger() {
+    this.logger = new Logger(this.config.CONFIG_JSON_DATA.logLevel);
   }
 }

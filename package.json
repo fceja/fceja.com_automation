@@ -14,7 +14,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.199",
     "@types/selenium-webdriver": "^4.1.16",
+    "lodash": "^4.17.21",
     "selenium-webdriver": "^4.12.0"
   }
 }
