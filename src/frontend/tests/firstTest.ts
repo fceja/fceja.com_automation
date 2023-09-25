@@ -6,11 +6,9 @@ class FirstTest extends TestObject {
   }
 
   async main() {
-    // await firstTest.driver.get("https://google.com");
+    await firstTest.driver.get("https://google.com");
 
-    console.log(`firstTest config -> ${firstTest.config_file.CONFIG_FILE_PATH}`);
-
-    // await firstTest.tearDown();
+    await firstTest.tearDown();
   }
 }
 
