@@ -1,5 +1,5 @@
 import { startCase } from "lodash";
-import addColorCodeToString from "./consoleTextColors";
+import addColorCodeToString from "./ConsoleColorsCodes";
 
 enum LogLevel {
   Info,

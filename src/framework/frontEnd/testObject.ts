@@ -1,7 +1,7 @@
 import { Builder, WebDriver } from "selenium-webdriver";
 
-import ConfigFileParser from "../utils/configFileParser";
-import Logger from "../utils/logger";
+import ConfigFileParser from "../utils/ConfigFileParser";
+import Logger from "../utils/Logger";
 
 export class TestObject {
   config!: ConfigFileParser;

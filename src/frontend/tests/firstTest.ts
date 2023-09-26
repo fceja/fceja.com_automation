@@ -1,4 +1,4 @@
-import { TestObject } from "../../framework/frontEnd/testObject";
+import { TestObject } from "../../framework/frontEnd/TestObject";
 
 class FirstTest extends TestObject {
   constructor() {

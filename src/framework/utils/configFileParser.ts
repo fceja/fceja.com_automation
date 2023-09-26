@@ -1,5 +1,5 @@
 import fs from "fs";
-import addColorCodeToString from "./consoleTextColors";
+import addColorCodeToString from "./ConsoleColorsCodes";
 
 interface ConfigJsonData {
   browserName: string;
