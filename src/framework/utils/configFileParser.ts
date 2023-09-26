@@ -37,23 +37,26 @@ export default class ConfigFileParser {
      *   - tsc && node {path_to_test_file} CONFIG_FILE_PATH_ARG={path_to_config_file}
      *   - tsc && node dist/frontend/tests/firstTest.js CONFIG_FILE_PATH_ARG=configs/localConfig.json
      */
-    // parse cli arguments
+    // get 'testEnvironmentOptions' cli argument
     const configFilePathArg = process.argv.find((arg) =>
-      arg.startsWith("CONFIG_FILE_PATH_ARG")
+      arg.startsWith("--testEnvironmentOptions=")
     );
 
+    // parse argument for config file path
+    const configFilePath = configFilePathArg?.split("CONFIG_FILE_PATH_ARG:")[1];
+
     // validate 'CONFIG_FILE_PATH_ARG' arg was set in cli command
-    if (!configFilePathArg) {
+    if (!configFilePath) {
       throw Error(
         `${addColorCodeToString(
           "red",
-          "Please provide 'CONFIG_FILE_PATH_ARG' command line argument"
+          "Please provide '--testEnvironmentOptions=\"CONFIG_FILE_PATH_ARG:{path_to_config}\"' in command line"
         )}`
       );
     }
 
     // store config file path
-    this.CONFIG_FILE_PATH = configFilePathArg.split("=")[1];
+    this.CONFIG_FILE_PATH = configFilePath;
   }
 
   parseConfigFile() {
