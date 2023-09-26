@@ -1,4 +1,7 @@
 {
-  "browserName": "chrome",
-  "logLevel": "debug"
+  "logLevel": "debug",
+  "webDriver": {
+    "browserName": "chrome",
+    "platform": "mac"
+  }
 }

@@ -30,8 +30,12 @@ export class TestObject {
   }
 
   async initWebDriver() {
-    this.webDriver = await new Builder()
-      .forBrowser(this.config.CONFIG_JSON_DATA.browserName)
-      .build();
+    // ref: https://www.selenium.dev/documentation/legacy/json_wire_protocol/#capabilities-json-object
+    const capabilities = {
+      browserName: this.config.CONFIG_JSON_DATA.webDriver.browserName,
+      platform: this.config.CONFIG_JSON_DATA.webDriver.platform,
+    };
+
+    this.webDriver = await new Builder().withCapabilities(capabilities).build();
   }
 }

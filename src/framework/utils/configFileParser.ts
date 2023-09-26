@@ -2,8 +2,11 @@ import fs from "fs";
 import addColorCodeToString from "./ConsoleColorsCodes";
 
 interface ConfigJsonData {
-  browserName: string;
   logLevel: string;
+  webDriver: {
+    browserName: string;
+    platform: string;
+  };
 }
 
 export default class ConfigFileParser {
@@ -13,8 +16,11 @@ export default class ConfigFileParser {
 
   CONFIG_FILE_PATH = "";
   CONFIG_JSON_DATA: ConfigJsonData = {
-    browserName: "",
     logLevel: "",
+    webDriver: {
+      browserName: "",
+      platform: "",
+    },
   };
 
   constructor() {
