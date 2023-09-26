@@ -2,12 +2,16 @@ import { TestObject } from "../../framework/frontEnd/testObject";
 
 const testObject = new TestObject();
 
-beforeAll(() => {});
+beforeAll(async () => {
+  await testObject.startUp();
+});
 
-afterAll(() => {});
+afterAll(async () => {
+  await testObject.tearDown();
+});
 
-describe("secondTestJest", () => {
-  test("testing jest", () => {
-    testObject.tearDown();
+describe("Jest Tests", () => {
+  test("Jest test 1", async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   });
 });
