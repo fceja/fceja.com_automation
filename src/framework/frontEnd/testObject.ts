@@ -4,9 +4,9 @@ import ConfigFileParser from "../utils/ConfigFileParser";
 import Logger from "../utils/Logger";
 
 export class TestObject {
-  private webDriver!: WebDriver;
   private webDriverBuilder!: Builder;
 
+  webDriver!: WebDriver;
   config!: ConfigFileParser;
   logger!: Logger;
 
@@ -21,7 +21,10 @@ export class TestObject {
   }
 
   private configureWebDriverBuilder() {
-    // ref: https://www.selenium.dev/documentation/legacy/json_wire_protocol/#capabilities-json-object
+    /*
+     * ref: https://www.selenium.dev/documentation/legacy/json_wire_protocol/#capabilities-json-object
+     */
+
     const capabilities = {
       browserName: this.config.CONFIG_JSON_DATA.webDriver.browserName,
       platform: this.config.CONFIG_JSON_DATA.webDriver.platform,
