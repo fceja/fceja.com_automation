@@ -1,0 +1,6 @@
+{
+  "title": {
+    "locator": "xpath",
+    "argument": "//div[contains(@class, 'theme-doc-markdown markdown')]/header/h1"
+  }
+}
