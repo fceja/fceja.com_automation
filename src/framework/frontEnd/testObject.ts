@@ -4,17 +4,17 @@ import ConfigFileParser from "../utils/ConfigFileParser";
 import Logger from "../utils/Logger";
 
 export class TestObject {
+  private webDriver!: WebDriver;
+  private webDriverBuilder!: Builder;
+
   config!: ConfigFileParser;
   logger!: Logger;
-  webDriver!: WebDriver;
-  webDriverBuilder!: Builder;
 
   constructor() {
     this.initConfigFile();
     this.initLogger();
     this.configureWebDriverBuilder();
   }
-
 
   private async buildWebDriver(): Promise<void> {
     this.webDriver = await this.webDriverBuilder.build();
