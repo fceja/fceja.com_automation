@@ -13,7 +13,7 @@ export class LoadPageObjectJsonData {
       loadPageObject.getChildPageObjectJsonFilePath();
 
     if (!childPageObjectJsonFilePath) {
-      throw Error(
+      throw new Error(
         `Invalid 'pageObjectJsonFilePath' -> ${childPageObjectJsonFilePath}`
       );
     }
@@ -64,7 +64,7 @@ export class LoadPageObjectJsonData {
     );
 
     if (!childPageObjectFilePath) {
-      throw Error(
+      throw new Error(
         `Invalid 'childPageObjectFilePath' -> ${childPageObjectFilePath}`
       );
     }

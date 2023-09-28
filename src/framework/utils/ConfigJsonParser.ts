@@ -59,7 +59,7 @@ export default class ConfigJsonParser {
 
     // validate 'CONFIG_FILE_PATH_ARG' arg was set in cli command
     if (!configFilePath) {
-      throw Error(
+      throw new Error(
         `${addColorCodeToString(
           "red",
           "Please provide '--testEnvironmentOptions=\"CONFIG_FILE_PATH_ARG:{path_to_config}\"' in command line"
@@ -88,7 +88,7 @@ export default class ConfigJsonParser {
      * - Validates 'CONFIG_FILE_PATH_ARG' file path exists
      */
     if (!fs.existsSync(this.CONFIG_FILE_PATH)) {
-      throw Error(
+      throw new Error(
         `${addColorCodeToString(
           "red",
           "Provided 'CONFIG_FILE_PATH_ARG' file path does not exist"
