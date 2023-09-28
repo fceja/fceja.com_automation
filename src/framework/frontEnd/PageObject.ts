@@ -1,4 +1,4 @@
-import { By, WebDriver } from "selenium-webdriver";
+import { By, WebDriver, WebElementPromise } from "selenium-webdriver";
 
 interface LocatorData {
   locator: string;
@@ -75,12 +75,35 @@ export class PageObject {
   }
 
   protected async getElement(jsonKey: string) {
-    const [_locator, argument] = await this.getLocatorData(jsonKey);
+    const [locator, argument] = await this.getLocatorData(jsonKey);
 
-    // todo - need to add locator functionality
-    const webDriverElement = await this.webDriver.findElement(
-      By.xpath(argument)
-    );
+    const locatorMap: {
+      [key: string]: (argument: string) => WebElementPromise;
+    } = {
+      className: (argument) => {
+        return this.webDriver.findElement(By.className(argument));
+      },
+      css: (argument) => {
+        return this.webDriver.findElement(By.css(argument));
+      },
+      id: (argument) => {
+        return this.webDriver.findElement(By.id(argument));
+      },
+      name: (argument) => {
+        return this.webDriver.findElement(By.name(argument));
+      },
+      linkText: (argument) => {
+        return this.webDriver.findElement(By.linkText(argument));
+      },
+      partialLinkText: (argument) => {
+        return this.webDriver.findElement(By.partialLinkText(argument));
+      },
+      xpath: (argument) => {
+        return this.webDriver.findElement(By.xpath(argument));
+      },
+    };
+
+    const webDriverElement = locatorMap[locator](argument);
 
     return webDriverElement;
   }
