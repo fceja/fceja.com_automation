@@ -30,4 +30,3 @@ describe("Jest Tests", () => {
     console.log(`result -> ${result}`);
   });
 });
-
