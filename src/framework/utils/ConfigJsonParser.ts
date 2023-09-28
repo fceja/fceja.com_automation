@@ -1,22 +1,26 @@
 import fs from "fs";
 import addColorCodeToString from "./ConsoleColorsCodes";
 
-interface ConfigJsonData {
-  logLevel: string;
+export interface ConfigJsonData {
+  logger: {
+    logLevel: string;
+  };
   webDriver: {
     browserName: string;
     platform: string;
   };
 }
 
-export default class ConfigFileParser {
+export default class ConfigJsonParser {
   /*
    * Creates an instance with parsed config file data.
    */
 
-  CONFIG_FILE_PATH = "";
-  CONFIG_JSON_DATA: ConfigJsonData = {
-    logLevel: "",
+  private CONFIG_FILE_PATH = "";
+  private CONFIG_JSON_DATA: ConfigJsonData = {
+    logger: {
+      logLevel: "",
+    },
     webDriver: {
       browserName: "",
       platform: "",
@@ -24,13 +28,15 @@ export default class ConfigFileParser {
   };
 
   constructor() {
-    this.startUp();
-  }
-
-  startUp() {
+    // this.startUp();
     this.getConfigFilePathArg();
     this.validateConfigFilePathArg();
     this.parseConfigFile();
+  }
+  static getConfigJsonData() {
+    const configFileParser = new ConfigJsonParser();
+
+    return configFileParser.CONFIG_JSON_DATA;
   }
 
   getConfigFilePathArg() {

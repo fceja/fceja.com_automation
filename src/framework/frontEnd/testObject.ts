@@ -1,17 +1,17 @@
 import { Builder, WebDriver } from "selenium-webdriver";
 
-import ConfigFileParser from "../utils/ConfigFileParser";
+import ConfigJsonParser, { ConfigJsonData } from "../utils/ConfigJsonParser";
 import Logger from "../utils/Logger";
 
 export class TestObject {
   private webDriverBuilder!: Builder;
 
   webDriver!: WebDriver;
-  config!: ConfigFileParser;
+  configData!: ConfigJsonData;
   logger!: Logger;
 
   constructor() {
-    this.initConfigFile();
+    this.getConfigFileData();
     this.initLogger();
     this.configureWebDriverBuilder();
   }
@@ -25,20 +25,22 @@ export class TestObject {
      * ref: https://www.selenium.dev/documentation/legacy/json_wire_protocol/#capabilities-json-object
      */
 
+    const webDriverConfig = this.configData.webDriver;
     const capabilities = {
-      browserName: this.config.CONFIG_JSON_DATA.webDriver.browserName,
-      platform: this.config.CONFIG_JSON_DATA.webDriver.platform,
+      browserName: webDriverConfig.browserName,
+      platform: webDriverConfig.platform,
     };
 
     this.webDriverBuilder = new Builder().withCapabilities(capabilities);
   }
 
-  private initConfigFile() {
-    this.config = new ConfigFileParser();
+  private getConfigFileData() {
+    this.configData = ConfigJsonParser.getConfigJsonData();
   }
 
   private initLogger() {
-    this.logger = new Logger(this.config.CONFIG_JSON_DATA.logLevel);
+    const loggerConfig = this.configData.logger;
+    this.logger = new Logger(loggerConfig.logLevel);
   }
 
   async startUp() {
