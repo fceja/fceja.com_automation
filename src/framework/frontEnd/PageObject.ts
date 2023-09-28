@@ -18,29 +18,28 @@ export class PageObject {
   }
 
   private loadPageObjectJsonData() {
-    const pageObjectJsonFilePath = this.getJsonFilePath();
+    const childPageObjectJsonFilePath = this.getChildPageObjectJsonFilePath();
 
-    if (pageObjectJsonFilePath) {
-      try {
-        const jsonData = require(pageObjectJsonFilePath);
-        this.pageObjectJsonData = jsonData;
-      } catch (error) {
-        console.error(`${error}`);
-      }
-    } else {
-      throw Error();
+    if (!childPageObjectJsonFilePath) {
+      throw Error(
+        `Invalid 'pageObjectJsonFilePath' -> ${childPageObjectJsonFilePath}`
+      );
     }
+
+    const jsonData = require(childPageObjectJsonFilePath);
+    this.pageObjectJsonData = jsonData;
   }
 
-  private getJsonFilePath() {
-    const stackData = this.getCallStackData();
-    const pageObjectFilePath = this.parseFilePathFromStackData(stackData);
+  private getChildPageObjectJsonFilePath() {
+    const callStackData = this.getCallStackData();
+    const childPageObjectFilePath =
+      this.parseChildPageObjectFilePathFromCallStackData(callStackData);
 
-    const pageObjectJsonFilePath = pageObjectFilePath
+    const childPageObjectJsonFilePath = childPageObjectFilePath
       ?.split(":")[0]
       .replace(".ts", ".json");
 
-    return pageObjectJsonFilePath;
+    return childPageObjectJsonFilePath;
   }
 
   private getCallStackData() {
@@ -48,24 +47,36 @@ export class PageObject {
 
     Error.captureStackTrace(callStack, this.getCallStackData);
 
-    const stackData = callStack.stack.split("\n");
+    const callStackData = callStack.stack.split("\n");
 
-    return stackData;
+    return callStackData;
   }
 
-  private parseFilePathFromStackData(callStack: string) {
-    // hardcoded call stack value - may fail
-    // todo - make dynamic
-    const callerLine = callStack[4].trim();
-    const matchResult = callerLine.match(/\(([^)]+)\)/);
+  private parseChildPageObjectFilePathFromCallStackData(callStackData: string) {
+    /*
+     * TODO - need to verify this does not break when multiple child page objects are called
+     */
+    const childPageObjectCallStackLine = Object.values(callStackData).find(
+      (elem) => {
+        return elem.indexOf("pageObjects") !== -1;
+      }
+    );
 
-    if (matchResult && matchResult[1]) {
-      const pageObjectFileName = matchResult[1];
-      return pageObjectFileName;
-    } else {
-      console.error("File name not found.");
-      return null;
+    const matchResult = childPageObjectCallStackLine?.match(/\(([^)]+)\)/);
+
+    const childPageObjectFilePath = Object.values(matchResult as string[]).find(
+      (elem) => {
+        return elem.indexOf("(") === -1;
+      }
+    );
+
+    if (!childPageObjectFilePath) {
+      throw Error(
+        `Invalid 'childPageObjectFilePath' -> ${childPageObjectFilePath}`
+      );
     }
+
+    return childPageObjectFilePath;
   }
 
   private async getLocatorData(jsonKey: string) {
