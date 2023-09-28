@@ -37,31 +37,37 @@ export class PageObject {
     }
   }
 
-  protected async getElement(jsonKey: string) {
-    const [locator, argument] = await this.getLocatorDataByJsonKey(jsonKey);
+  private getLocatorDataByJsonKey(jsonKey: string) {
+    const locatorData = this.pageObjectJsonData[jsonKey];
 
-    const webDriverElement = this.webDriver.findElement(
-      this.getByLocatorArg(locator, argument)
-    );
-
-    return webDriverElement;
+    return [locatorData.locator, locatorData.argument];
   }
 
-  protected async getElements(jsonKey: string) {
-    const [locator, argument] = await this.getLocatorDataByJsonKey(jsonKey);
+  private async getElementByJsonKey(jsonKey: string) {
+    const [locator, argument] = this.getLocatorDataByJsonKey(jsonKey);
 
-    const webDriverElements = this.webDriver.findElements(
+    const element = await this.webDriver.findElement(
       this.getByLocatorArg(locator, argument)
     );
 
-    return webDriverElements;
+    return element;
+  }
+
+  private async getElementsByJsonKey(jsonKey: string) {
+    const [locator, argument] = this.getLocatorDataByJsonKey(jsonKey);
+
+    const elements = await this.webDriver.findElements(
+      this.getByLocatorArg(locator, argument)
+    );
+
+    return elements;
   }
 
   protected async getElementText(jsonKey: string) {
     try {
-      const webDriverElement = await this.getElement(jsonKey);
+      const element = await this.getElementByJsonKey(jsonKey);
 
-      return webDriverElement.getText();
+      return element.getText();
     } catch (error) {
       console.error(`${error}`);
 
@@ -69,9 +75,23 @@ export class PageObject {
     }
   }
 
-  private async getLocatorDataByJsonKey(jsonKey: string) {
-    const locatorData = this.pageObjectJsonData[jsonKey];
+  protected async getElementsText(jsonKey: string) {
+    try {
+      const elements = await this.getElementsByJsonKey(jsonKey);
 
-    return [locatorData.locator, locatorData.argument];
+      const stringPromises = elements.map(async (elem) => {
+        return await elem.getText();
+      });
+
+      const stringOutput = await Promise.all(stringPromises);
+
+      return stringOutput;
+    } catch (error) {
+      console.error(`${error}`);
+
+      throw new Error(
+        `Elements text retrieval failed. 'jsonKey' -> ${jsonKey}`
+      );
+    }
   }
 }
