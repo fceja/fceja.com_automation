@@ -9,7 +9,7 @@ const COLOR_CODES: { [key: string]: string } = {
 
 const RESET = "\x1b[0m";
 
-export default function addColorCodeToString(
+export default function addConsoleColorCode(
   color: string,
   inputString: string
 ) {

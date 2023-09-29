@@ -1,5 +1,5 @@
 import { startCase } from "lodash";
-import addColorCodeToString from "./ConsoleColorsCodes";
+import addConsoleColorCode from "./ConsoleColorsCodes";
 
 enum LogLevel {
   Info,
@@ -21,24 +21,24 @@ export default class Logger {
         return LogLevel.Debug;
       default:
         throw new Error(
-          `${addColorCodeToString(
+          `${addConsoleColorCode(
             "red",
             "Invalid 'logLevel' value provided"
           )}` +
-            `\n${addColorCodeToString("magenta", "logLevel")} -> '${logLevel}`
+            `\n${addConsoleColorCode("magenta", "logLevel")} -> '${logLevel}`
         );
     }
   }
 
   info(message: string) {
     if (this.logLevel >= LogLevel.Info) {
-      console.log(`[${addColorCodeToString("cyan", "Info")}]: ${message}`);
+      console.log(`[${addConsoleColorCode("cyan", "Info")}]: ${message}`);
     }
   }
 
   debug(message: string) {
     if (this.logLevel >= LogLevel.Debug) {
-      console.log(`[${addColorCodeToString("yellow", "Debug")}]: ${message}`);
+      console.log(`[${addConsoleColorCode("yellow", "Debug")}]: ${message}`);
     }
   }
 }

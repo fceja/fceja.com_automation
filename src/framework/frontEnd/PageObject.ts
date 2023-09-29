@@ -1,5 +1,6 @@
 import { By, WebDriver } from "selenium-webdriver";
 
+import addConsoleColorCode from "../utils/ConsoleColorsCodes";
 import {
   LoadPageObjectJsonData,
   PageObjectJsonData,
@@ -15,34 +16,56 @@ export class PageObject {
     this.pageObjectJsonData = LoadPageObjectJsonData.loadPageObjectJsonData();
   }
 
-  private getByLocatorArg(locator: string, arg: string): By {
-    switch (locator) {
+  private formatLocator(locatorToFormat: string, ...args: string[]): string {
+    return locatorToFormat.replace(/{(\d+)}/g, (_, index) => args[index] || "");
+  }
+
+  private getByLocator(locatorType: string, locator: string): By {
+    switch (locatorType) {
       case "className":
-        return By.className(arg);
+        return By.className(locator);
       case "css":
-        return By.css(arg);
+        return By.css(locator);
       case "id":
-        return By.id(arg);
+        return By.id(locator);
       case "name":
-        return By.name(arg);
+        return By.name(locator);
       case "linkText":
-        return By.linkText(arg);
+        return By.linkText(locator);
       case "partialLinkText":
-        return By.partialLinkText(arg);
+        return By.partialLinkText(locator);
       case "xpath":
-        return By.xpath(arg);
+        return By.xpath(locator);
 
       default:
-        throw new Error(`Invalid 'locator' value -> ${locator}`);
+        throw new Error(`Invalid 'locator' value -> ${locatorType}`);
     }
   }
 
   private getLocatorDataByJsonKey(jsonKey: string) {
     const locatorData = this.pageObjectJsonData[jsonKey];
 
-    return [locatorData.locator, locatorData.arg];
+    return [locatorData.locatorType, locatorData.locator];
   }
 
+  private getDynamicLocatorDataByJsonKey(jsonKey: string) {
+    try {
+      const locatorData = this.pageObjectJsonData[jsonKey];
+
+      return [locatorData.locatorType, locatorData.locator];
+    } catch (error) {
+      const jsonKeyColor = addConsoleColorCode("magenta", '"jsonKey"');
+      const locatorDataColor = addConsoleColorCode("magenta", '"locatorData"');
+
+      throw new Error(
+        `\n${jsonKeyColor} -> "${jsonKey}"\n${locatorDataColor} -> "${this.pageObjectJsonData[jsonKey]}"\n"errorMessage" -> "${error}"`
+      );
+    }
+  }
+
+  /**
+   *  getters - single element
+   */
   private async getElement(jsonKey: string) {
     const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
 
@@ -95,39 +118,63 @@ export class PageObject {
     }
   }
 
-  protected async getDynamicElement(jsonKey: string, ...args: string[]) {
-    const [locator, arg] = this.getDynamicLocatorDataByJsonKey(jsonKey, args);
+  /**
+   * getters - single dynamic element
+   */
+  protected async getDynamicElement(jsonKey: string, ...locatorArgs: string[]) {
+    const [locatorType, locatorToFormat] =
+      this.getDynamicLocatorDataByJsonKey(jsonKey);
 
-    const elem = await this.webDriver.findElement(
-      this.getByLocatorArg(locator, arg)
+    const formattedLocator = this.formatLocator(
+      locatorToFormat,
+      ...locatorArgs
     );
 
-    return elem;
+    try {
+      const elem = await this.webDriver.findElement(
+        this.getByLocator(locatorType, formattedLocator)
+      );
+
+      return elem;
+    } catch (error) {
+      const jsonKeyColored = addConsoleColorCode("magenta", '"jsonKey"');
+      const locatorArgsColored = addConsoleColorCode(
+        "magenta",
+        '"locatorArgs"'
+      );
+      const locatorToFormatColored = addConsoleColorCode(
+        "magenta",
+        '"locatorToFormat"'
+      );
+      const formattedLocatorColored = addConsoleColorCode(
+        "magenta",
+        '"formattedLocator"'
+      );
+
+      throw new Error(
+        `\n${jsonKeyColored} -> "${jsonKey}"\n${locatorArgsColored} -> "${locatorArgs}"\n${locatorToFormatColored} -> ${locatorToFormat}\n${formattedLocatorColored} -> "${formattedLocator}"\n"errorMessage" -> "${error}"\n"`
+      );
+    }
   }
 
-  protected async getDynamicElementText(jsonKey: string, ...args: string[]) {
+  protected async getDynamicElementText(
+    jsonKey: string,
+    ...locatorArgs: string[]
+  ) {
     try {
-      const elem = await this.getDynamicElement(jsonKey, ...args);
+      const elem = await this.getDynamicElement(jsonKey, ...locatorArgs);
 
       return elem.getText();
     } catch (error) {
       console.error(`${error}`);
 
-      throw new Error(
-        `Elements text retrieval failed. 'jsonKey' -> ${jsonKey}`
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getDynamicElementText(...)"
       );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
     }
-  }
-
-  private getDynamicLocatorDataByJsonKey(jsonKey: string, args: string[]) {
-    const locatorData = this.pageObjectJsonData[jsonKey];
-
-    const formattedArg = this.formatString(locatorData.arg, ...args);
-
-    return [locatorData.locator, formattedArg];
-  }
-
-  private formatString(template: string, ...args: string[]): string {
-    return template.replace(/{(\d+)}/g, (_, index) => args[index] || "");
   }
 }

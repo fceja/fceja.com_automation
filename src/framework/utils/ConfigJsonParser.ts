@@ -1,5 +1,5 @@
 import fs from "fs";
-import addColorCodeToString from "./ConsoleColorsCodes";
+import addConsoleColorCode from "./ConsoleColorsCodes";
 
 export interface ConfigJsonData {
   logger: {
@@ -60,7 +60,7 @@ export default class ConfigJsonParser {
     // validate 'CONFIG_FILE_PATH_ARG' arg was set in cli command
     if (!configFilePath) {
       throw new Error(
-        `${addColorCodeToString(
+        `${addConsoleColorCode(
           "red",
           "Please provide '--testEnvironmentOptions=\"CONFIG_FILE_PATH_ARG:{path_to_config}\"' in command line"
         )}`
@@ -89,11 +89,11 @@ export default class ConfigJsonParser {
      */
     if (!fs.existsSync(this.CONFIG_FILE_PATH)) {
       throw new Error(
-        `${addColorCodeToString(
+        `${addConsoleColorCode(
           "red",
           "Provided 'CONFIG_FILE_PATH_ARG' file path does not exist"
         )}` +
-          `\n${addColorCodeToString("magenta", "CONFIG_FILE_PATH_ARG")} -> '${
+          `\n${addConsoleColorCode("magenta", "CONFIG_FILE_PATH_ARG")} -> '${
             this.CONFIG_FILE_PATH
           }'`
       );

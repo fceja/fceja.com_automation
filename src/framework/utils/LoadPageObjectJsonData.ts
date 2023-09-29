@@ -1,6 +1,6 @@
-interface LocatorData {
+export interface LocatorData {
+  locatorType: string;
   locator: string;
-  arg: string;
 }
 
 export type PageObjectJsonData = Record<string, LocatorData>;
