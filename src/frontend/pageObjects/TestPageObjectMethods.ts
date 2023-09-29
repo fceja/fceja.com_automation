@@ -26,7 +26,10 @@ export class TestPageObjectMethods extends PageObject {
   }
 
   async getDocumentationLinkAttribute(attribute: string) {
-    const elements = await this.getElementAttribute("documentationLink", attribute);
+    const elements = await this.getElementAttribute(
+      "documentationLink",
+      attribute
+    );
     return elements;
   }
 }

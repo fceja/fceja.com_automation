@@ -1,3 +1,4 @@
+import "jest-expect-message";
 import { By, WebDriver } from "selenium-webdriver";
 
 import addConsoleColorCode from "../utils/ConsoleColorsCodes";
@@ -126,13 +127,18 @@ export class PageObject {
         this.getByLocator(locatorType, locator)
       );
 
+      expect(
+        elems.length,
+        "Expected webDriver elems returned to not be empty but was."
+      ).toBeGreaterThan(0);
+
       return elems;
     } catch (error) {
       const jsonKeyColored = addConsoleColorCode("magenta", '"jsonKey"');
       const locatorColored = addConsoleColorCode("magenta", '"locatorArgs"');
 
       throw new Error(
-        `\n${jsonKeyColored} -> "${jsonKey}"\n${locatorColored} -> "${locator}"\n"errorMessage" -> "${error}"\n"`
+        `\n${jsonKeyColored} -> "${jsonKey}"\n${locatorColored} -> "${locator}"\n"errorMessage" -> ${error}`
       );
     }
   }

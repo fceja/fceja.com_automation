@@ -43,9 +43,8 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
     ];
 
     const actualResults = await testPageObjectMethods.getParagraphsText();
-
-    actualResults.forEach((actualText, index) => {
-      expect(actualText).toBe(expectedResults[index]);
+    expectedResults.forEach((expectedText: string, index: number) => {
+      expect(actualResults[index]).toBe(expectedText);
     });
   });
 
