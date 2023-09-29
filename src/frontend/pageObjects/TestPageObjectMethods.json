@@ -3,9 +3,9 @@
     "locatorType": "xpath",
     "locator": "//div[contains(@class, 'td-content')]/h1"
   },
-  "paragraphTex": {
+  "paragraphs": {
     "locatorType": "xpath",
-    "locator": "//div[contains(@class, 'theme-doc-markdown markdown')]/p"
+    "locator": "//div[contains(@class, 'td-content')]/p"
   },
   "replaceVar": {
     "locatorType": "xpath",
