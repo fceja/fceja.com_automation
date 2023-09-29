@@ -7,9 +7,9 @@
     "locatorType": "xpath",
     "locator": "//div[contains(@class, 'td-content')]/p"
   },
-  "replaceVar": {
+  "subTitleParagraph": {
     "locatorType": "xpath",
-    "locator": "//div[contains(@class, '{0}')]/{1}"
+    "locator": "//div[contains(@class, 'entry')]/h5/a[contains(text(), '{0}')]/../following-sibling::p"
   },
   "dynamicTex": {
     "locatorType": "xpath",

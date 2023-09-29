@@ -16,4 +16,12 @@ export class TestPageObjectMethods extends PageObject {
     const elements = await this.getElementsText("paragraphs");
     return elements;
   }
+
+  async getSubTitleParagraphText(subTitle: string) {
+    const elemText = await this.getDynamicElementText(
+      "subTitleParagraph",
+      subTitle
+    );
+    return elemText;
+  }
 }

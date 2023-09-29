@@ -24,12 +24,12 @@ afterAll(async () => {
 });
 
 describe("Testing PageObject methods on Selenium Documentation page", () => {
-  test("Get element text - 'title'", async () => {
+  test("getElementText(...) -  jsonKey 'title'", async () => {
     const result = await testPageObjectMethods.getTitleText();
     expect(result).toBe("The Selenium Browser Automation Project");
   });
 
-  test("Get elements text - 'paragraphs'", async () => {
+  test("getElementsText(...) - jsonKey 'paragraphs'", async () => {
     const expectedResults = [
       "Selenium is an umbrella project for a range of tools and libraries that enable and support the automation of web browsers.",
       "It provides extensions to emulate user interaction with browsers, a distribution server for scaling browser allocation, and the infrastructure for implementations of the W3C WebDriver specification that lets you write interchangeable code for all major web browsers.",
@@ -45,5 +45,16 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
     results.forEach((actualText, index) => {
       expect(actualText).toBe(expectedResults[index]);
     });
+  });
+
+  test("getDynamicElementText(...) - jsonKey 'subTitleParagraph", async () => {
+    const subTitle = "Test Practices";
+    const expectedParagraphText =
+      "Some guidelines and recommendations on testing from the Selenium project.";
+
+    const result = await testPageObjectMethods.getSubTitleParagraphText(
+      subTitle
+    );
+    expect(result).toBe(expectedParagraphText);
   });
 });
