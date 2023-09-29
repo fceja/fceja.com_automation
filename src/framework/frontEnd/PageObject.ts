@@ -63,21 +63,38 @@ export class PageObject {
   private async getElement(jsonKey: string) {
     const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
 
-    const elem = await this.webDriver.findElement(
-      this.getByLocatorArg(locator, arg)
-    );
+    try {
+      const elem = await this.webDriver.findElement(
+        this.getByLocator(locator, arg)
+      );
 
-    return elem;
+      return elem;
+    } catch (error) {
+      const jsonKeyColored = addConsoleColorCode("magenta", '"jsonKey"');
+      const locatorColored = addConsoleColorCode("magenta", '"locatorArgs"');
+
+      throw new Error(
+        `\n${jsonKeyColored} -> "${jsonKey}"\n${locatorColored} -> "${locator}"\n"errorMessage" -> "${error}"\n"`
+      );
+    }
   }
 
-  private async getElements(jsonKey: string) {
-    const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
+  protected async getElementAttribute(jsonKey: string, attribute: string) {
+    try {
+      const elem = await this.getElement(jsonKey);
 
-    const elems = await this.webDriver.findElements(
-      this.getByLocatorArg(locator, arg)
-    );
+      return elem.getAttribute(attribute);
+    } catch (error) {
+      console.error(`${error}`);
 
-    return elems;
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementAttribute(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
   }
 
   protected async getElementText(jsonKey: string) {
@@ -88,7 +105,13 @@ export class PageObject {
     } catch (error) {
       console.error(`${error}`);
 
-      throw new Error(`Element text retrieval failed. 'jsonKey' -> ${jsonKey}`);
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementText(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
     }
   }
 
