@@ -43,12 +43,6 @@ export class PageObject {
   }
 
   private getLocatorDataByJsonKey(jsonKey: string) {
-    const locatorData = this.pageObjectJsonData[jsonKey];
-
-    return [locatorData.locatorType, locatorData.locator];
-  }
-
-  private getDynamicLocatorDataByJsonKey(jsonKey: string) {
     try {
       const locatorData = this.pageObjectJsonData[jsonKey];
 
@@ -98,6 +92,28 @@ export class PageObject {
     }
   }
 
+  /**
+   *  getters - multiple elements
+   */
+  private async getElements(jsonKey: string) {
+    const [locatorType, locator] = this.getLocatorDataByJsonKey(jsonKey);
+
+    try {
+      const elems = await this.webDriver.findElements(
+        this.getByLocator(locatorType, locator)
+      );
+
+      return elems;
+    } catch (error) {
+      const jsonKeyColored = addConsoleColorCode("magenta", '"jsonKey"');
+      const locatorColored = addConsoleColorCode("magenta", '"locatorArgs"');
+
+      throw new Error(
+        `\n${jsonKeyColored} -> "${jsonKey}"\n${locatorColored} -> "${locator}"\n"errorMessage" -> "${error}"\n"`
+      );
+    }
+  }
+
   protected async getElementsText(jsonKey: string) {
     try {
       const elems = await this.getElements(jsonKey);
@@ -112,9 +128,13 @@ export class PageObject {
     } catch (error) {
       console.error(`${error}`);
 
-      throw new Error(
-        `Elements text retrieval failed. 'jsonKey' -> ${jsonKey}`
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementsText(...)"
       );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
     }
   }
 
@@ -123,7 +143,7 @@ export class PageObject {
    */
   protected async getDynamicElement(jsonKey: string, ...locatorArgs: string[]) {
     const [locatorType, locatorToFormat] =
-      this.getDynamicLocatorDataByJsonKey(jsonKey);
+      this.getLocatorDataByJsonKey(jsonKey);
 
     const formattedLocator = this.formatLocator(
       locatorToFormat,
