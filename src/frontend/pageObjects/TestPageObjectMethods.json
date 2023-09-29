@@ -1,0 +1,22 @@
+{
+  "title": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, 'td-content')]/h1"
+  },
+  "paragraphTex": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, 'theme-doc-markdown markdown')]/p"
+  },
+  "replaceVar": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, '{0}')]/{1}"
+  },
+  "dynamicTex": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, '{0}')]/header/h1"
+  },
+  "themesTitle": {
+    "locatorType": "xpath",
+    "locator": "//h2[contains(@id, 'themes')]"
+  }
+}

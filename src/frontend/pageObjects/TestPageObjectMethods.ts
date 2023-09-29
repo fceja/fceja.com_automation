@@ -2,7 +2,7 @@ import { WebDriver } from "selenium-webdriver";
 
 import { PageObject } from "../../framework/frontEnd/PageObject";
 
-export class SecondTestPageObject extends PageObject {
+export class TestPageObjectMethods extends PageObject {
   constructor(webDriver: WebDriver) {
     super(webDriver);
   }
