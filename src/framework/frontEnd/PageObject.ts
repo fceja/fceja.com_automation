@@ -15,22 +15,22 @@ export class PageObject {
     this.pageObjectJsonData = LoadPageObjectJsonData.loadPageObjectJsonData();
   }
 
-  private getByLocatorArg(locator: string, argument: string): By {
+  private getByLocatorArg(locator: string, arg: string): By {
     switch (locator) {
       case "className":
-        return By.className(argument);
+        return By.className(arg);
       case "css":
-        return By.css(argument);
+        return By.css(arg);
       case "id":
-        return By.id(argument);
+        return By.id(arg);
       case "name":
-        return By.name(argument);
+        return By.name(arg);
       case "linkText":
-        return By.linkText(argument);
+        return By.linkText(arg);
       case "partialLinkText":
-        return By.partialLinkText(argument);
+        return By.partialLinkText(arg);
       case "xpath":
-        return By.xpath(argument);
+        return By.xpath(arg);
 
       default:
         throw new Error(`Invalid 'locator' value -> ${locator}`);
@@ -40,34 +40,34 @@ export class PageObject {
   private getLocatorDataByJsonKey(jsonKey: string) {
     const locatorData = this.pageObjectJsonData[jsonKey];
 
-    return [locatorData.locator, locatorData.argument];
+    return [locatorData.locator, locatorData.arg];
   }
 
-  private async getElementByJsonKey(jsonKey: string) {
-    const [locator, argument] = this.getLocatorDataByJsonKey(jsonKey);
+  private async getElement(jsonKey: string) {
+    const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
 
-    const element = await this.webDriver.findElement(
-      this.getByLocatorArg(locator, argument)
+    const elem = await this.webDriver.findElement(
+      this.getByLocatorArg(locator, arg)
     );
 
-    return element;
+    return elem;
   }
 
-  private async getElementsByJsonKey(jsonKey: string) {
-    const [locator, argument] = this.getLocatorDataByJsonKey(jsonKey);
+  private async getElements(jsonKey: string) {
+    const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
 
-    const elements = await this.webDriver.findElements(
-      this.getByLocatorArg(locator, argument)
+    const elems = await this.webDriver.findElements(
+      this.getByLocatorArg(locator, arg)
     );
 
-    return elements;
+    return elems;
   }
 
   protected async getElementText(jsonKey: string) {
     try {
-      const element = await this.getElementByJsonKey(jsonKey);
+      const elem = await this.getElement(jsonKey);
 
-      return element.getText();
+      return elem.getText();
     } catch (error) {
       console.error(`${error}`);
 
@@ -77,9 +77,9 @@ export class PageObject {
 
   protected async getElementsText(jsonKey: string) {
     try {
-      const elements = await this.getElementsByJsonKey(jsonKey);
+      const elems = await this.getElements(jsonKey);
 
-      const stringPromises = elements.map(async (elem) => {
+      const stringPromises = elems.map(async (elem) => {
         return await elem.getText();
       });
 
@@ -93,5 +93,41 @@ export class PageObject {
         `Elements text retrieval failed. 'jsonKey' -> ${jsonKey}`
       );
     }
+  }
+
+  protected async getDynamicElement(jsonKey: string, ...args: string[]) {
+    const [locator, arg] = this.getDynamicLocatorDataByJsonKey(jsonKey, args);
+
+    const elem = await this.webDriver.findElement(
+      this.getByLocatorArg(locator, arg)
+    );
+
+    return elem;
+  }
+
+  protected async getDynamicElementText(jsonKey: string, ...args: string[]) {
+    try {
+      const elem = await this.getDynamicElement(jsonKey, ...args);
+
+      return elem.getText();
+    } catch (error) {
+      console.error(`${error}`);
+
+      throw new Error(
+        `Elements text retrieval failed. 'jsonKey' -> ${jsonKey}`
+      );
+    }
+  }
+
+  private getDynamicLocatorDataByJsonKey(jsonKey: string, args: string[]) {
+    const locatorData = this.pageObjectJsonData[jsonKey];
+
+    const formattedArg = this.formatString(locatorData.arg, ...args);
+
+    return [locatorData.locator, formattedArg];
+  }
+
+  private formatString(template: string, ...args: string[]): string {
+    return template.replace(/{(\d+)}/g, (_, index) => args[index] || "");
   }
 }
