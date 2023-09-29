@@ -24,4 +24,9 @@ export class TestPageObjectMethods extends PageObject {
     );
     return elemText;
   }
+
+  async getDocumentationLinkAttribute(attribute: string) {
+    const elements = await this.getElementAttribute("documentationLink", attribute);
+    return elements;
+  }
 }

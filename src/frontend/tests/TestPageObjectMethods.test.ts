@@ -25,8 +25,10 @@ afterAll(async () => {
 
 describe("Testing PageObject methods on Selenium Documentation page", () => {
   test("getElementText(...) -  jsonKey 'title'", async () => {
-    const result = await testPageObjectMethods.getTitleText();
-    expect(result).toBe("The Selenium Browser Automation Project");
+    const expectedText = "The Selenium Browser Automation Project";
+
+    const actualText = await testPageObjectMethods.getTitleText();
+    expect(actualText).toBe(expectedText);
   });
 
   test("getElementsText(...) - jsonKey 'paragraphs'", async () => {
@@ -40,21 +42,31 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
       "You should continue on to Getting Started to understand how you can install Selenium and successfully use it as a test automation tool, and scaling simple tests like this to run in large, distributed environments on multiple browsers, on several different operating systems.",
     ];
 
-    const results = await testPageObjectMethods.getParagraphsText();
+    const actualResults = await testPageObjectMethods.getParagraphsText();
 
-    results.forEach((actualText, index) => {
+    actualResults.forEach((actualText, index) => {
       expect(actualText).toBe(expectedResults[index]);
     });
   });
 
   test("getDynamicElementText(...) - jsonKey 'subTitleParagraph", async () => {
     const subTitle = "Test Practices";
-    const expectedParagraphText =
+    const expectedText =
       "Some guidelines and recommendations on testing from the Selenium project.";
 
-    const result = await testPageObjectMethods.getSubTitleParagraphText(
+    const actualText = await testPageObjectMethods.getSubTitleParagraphText(
       subTitle
     );
-    expect(result).toBe(expectedParagraphText);
+    expect(actualText).toBe(expectedText);
+  });
+
+  test("getElementAttribute(...) - jsonKey 'documentationLink'", async () => {
+    const expectedAttributeValue = "https://www.selenium.dev/documentation/";
+    const attribute = "href";
+
+    const actualAttributeValue =
+      await testPageObjectMethods.getDocumentationLinkAttribute(attribute);
+
+    expect(actualAttributeValue).toBe(expectedAttributeValue);
   });
 });

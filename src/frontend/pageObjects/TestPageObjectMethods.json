@@ -11,12 +11,8 @@
     "locatorType": "xpath",
     "locator": "//div[contains(@class, 'entry')]/h5/a[contains(text(), '{0}')]/../following-sibling::p"
   },
-  "dynamicTex": {
+  "documentationLink": {
     "locatorType": "xpath",
-    "locator": "//div[contains(@class, '{0}')]/header/h1"
-  },
-  "themesTitle": {
-    "locatorType": "xpath",
-    "locator": "//h2[contains(@id, 'themes')]"
+    "locator": "//main[contains(@role, 'main')]//li/a[contains(text(), Documentation)]"
   }
 }
