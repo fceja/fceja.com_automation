@@ -36,4 +36,8 @@ export class TestPageObjectMethods extends PageObject {
   async clickPythonTabButton() {
     await this.clickElement("pythonTabBtn");
   }
+
+  async isAlertHeadingVisible() {
+    return await this.waitForElementVisible("alertHeading");
+  }
 }

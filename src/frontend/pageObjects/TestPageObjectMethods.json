@@ -18,5 +18,9 @@
   "pythonTabBtn": {
     "locatorType": "xpath",
     "locator": "//button[contains(@class, 'nav-link persistLang-Python')]"
+  },
+  "alertHeading": {
+    "locatorType": "xpath",
+    "locator": "//h4[contains(@class, 'alert-heading text-center m-0')]"
   }
 }

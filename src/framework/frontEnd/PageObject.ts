@@ -1,5 +1,5 @@
 import "jest-expect-message";
-import { By, WebDriver } from "selenium-webdriver";
+import { By, WebDriver, until } from "selenium-webdriver";
 
 import addConsoleColorCode from "../utils/ConsoleColorsCodes";
 import {
@@ -58,9 +58,6 @@ export class PageObject {
     }
   }
 
-  /**
-   *  getters - single element
-   */
   private async getElement(jsonKey: string) {
     const [locator, arg] = this.getLocatorDataByJsonKey(jsonKey);
 
@@ -134,9 +131,36 @@ export class PageObject {
     }
   }
 
-  /**
-   *  getters - multiple elements
-   */
+  protected async waitForElementVisible(
+    jsonKey: string,
+    waitTime: number = 1000
+  ) {
+    try {
+      const [locatorType, locator] = this.getLocatorDataByJsonKey(jsonKey);
+
+      const result = await this.webDriver.wait(
+        until.elementIsVisible(
+          await this.webDriver.findElement(
+            this.getByLocator(locatorType, locator)
+          )
+        ),
+        waitTime
+      );
+
+      return result;
+    } catch (error) {
+      console.error(`${error}`);
+
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementText(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
+  }
+
   private async getElements(jsonKey: string) {
     const [locatorType, locator] = this.getLocatorDataByJsonKey(jsonKey);
 
@@ -185,9 +209,6 @@ export class PageObject {
     }
   }
 
-  /**
-   * getters - single dynamic element
-   */
   protected async getDynamicElement(jsonKey: string, ...locatorArgs: string[]) {
     const [locatorType, locatorToFormat] =
       this.getLocatorDataByJsonKey(jsonKey);
