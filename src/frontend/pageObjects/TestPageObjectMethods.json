@@ -14,5 +14,9 @@
   "documentationLink": {
     "locatorType": "xpath",
     "locator": "//main[contains(@role, 'main')]//li/a[contains(text(), Documentation)]"
+  },
+  "pythonTabBtn": {
+    "locatorType": "xpath",
+    "locator": "//button[contains(@class, 'nav-link persistLang-Python')]"
   }
 }

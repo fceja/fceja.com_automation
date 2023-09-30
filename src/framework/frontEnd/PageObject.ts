@@ -116,6 +116,24 @@ export class PageObject {
     }
   }
 
+  protected async clickElement(jsonKey: string) {
+    try {
+      const elem = await this.getElement(jsonKey);
+
+      return elem.click();
+    } catch (error) {
+      console.error(`${error}`);
+
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementText(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
+  }
+
   /**
    *  getters - multiple elements
    */

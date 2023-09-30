@@ -32,4 +32,8 @@ export class TestPageObjectMethods extends PageObject {
     );
     return elements;
   }
+
+  async clickPythonTabButton() {
+    await this.clickElement("pythonTabBtn");
+  }
 }
