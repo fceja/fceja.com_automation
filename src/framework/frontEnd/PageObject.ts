@@ -131,6 +131,27 @@ export class PageObject {
     }
   }
 
+  protected async clickDynamicElement(
+    jsonKey: string,
+    ...locatorArgs: string[]
+  ) {
+    try {
+      const elem = await this.getDynamicElement(jsonKey, ...locatorArgs);
+
+      return elem.click();
+    } catch (error) {
+      console.error(`${error}`);
+
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getDynamicElementText(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
+  }
+
   protected async waitForElementVisible(
     jsonKey: string,
     waitTime: number = 1000

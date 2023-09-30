@@ -37,6 +37,13 @@ export class TestPageObjectMethods extends PageObject {
     await this.clickElement("pythonTabBtn");
   }
 
+  async clickDynamicPythonTabButton() {
+    await this.clickDynamicElement(
+      "dynamicPythonTabBtn",
+      "nav-link persistLang-Python"
+    );
+  }
+
   async isAlertHeadingVisible() {
     return await this.waitForElementVisible("alertHeading");
   }

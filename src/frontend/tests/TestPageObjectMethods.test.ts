@@ -73,6 +73,12 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
     await testPageObjectMethods.clickPythonTabButton();
   }, 10000);
 
+  test("clickElement(...) - jsonKey 'pythonTabBtn'", async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await testPageObjectMethods.clickPythonTabButton();
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  }, 10000);
+
   test("waitForElementvisible(...) - jsonKey 'alertHeading'", async () => {
     const result = await testPageObjectMethods.isAlertHeadingVisible();
     expect(result).not.toBeNull();
