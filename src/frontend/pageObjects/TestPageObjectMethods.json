@@ -26,5 +26,9 @@
   "alertHeading": {
     "locatorType": "xpath",
     "locator": "//h4[contains(@class, 'alert-heading text-center m-0')]"
+  },
+  "aboutThisDocumentationSubTitleLink": {
+    "locatorType": "xpath",
+    "locator": "//h5/a[contains(text(), 'About this documentation')]"
   }
 }

@@ -47,4 +47,8 @@ export class TestPageObjectMethods extends PageObject {
   async isAlertHeadingVisible() {
     return await this.waitForElementVisible("alertHeading");
   }
+
+  async scrollToAboutThisDoc() {
+    await this.scrollToElement("aboutThisDocumentationSubTitleLink");
+  }
 }

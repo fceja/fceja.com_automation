@@ -230,6 +230,27 @@ export class PageObject {
     }
   }
 
+  protected async scrollToElement(jsonKey: string) {
+    try {
+      const elem = await this.getElement(jsonKey);
+
+      await this.webDriver.executeScript(
+        "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'})",
+        elem
+      );
+    } catch (error) {
+      console.error(`${error}`);
+
+      const failedMessage = addConsoleColorCode("red", "Failed to execute");
+      const erroredMethod = addConsoleColorCode(
+        "magenta",
+        "PageObject.getElementsText(...)"
+      );
+
+      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
+  }
+
   protected async getDynamicElement(jsonKey: string, ...locatorArgs: string[]) {
     const [locatorType, locatorToFormat] =
       this.getLocatorDataByJsonKey(jsonKey);
