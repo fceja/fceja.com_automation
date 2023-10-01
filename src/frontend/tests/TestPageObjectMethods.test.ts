@@ -25,11 +25,14 @@ afterAll(async () => {
 
 describe("Testing PageObject methods on Selenium Documentation page", () => {
   test("getElementText(...) -  jsonKey 'title'", async () => {
+
+    // console.log(testing.configData.)
+
     const expectedText = "The Selenium Browser Automation Project";
 
     const actualText = await testPageObjectMethods.getTitleText();
     expect(actualText).toBe(expectedText);
-  }, 10000);
+  });
 
   test("getElementsText(...) - jsonKey 'paragraphs'", async () => {
     const expectedResults = [
@@ -46,7 +49,7 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
     expectedResults.forEach((expectedText: string, index: number) => {
       expect(actualResults[index]).toBe(expectedText);
     });
-  }, 10000);
+  });
 
   test("getDynamicElementText(...) - jsonKey 'subTitleParagraph", async () => {
     const subTitle = "Test Practices";
@@ -57,7 +60,7 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
       subTitle
     );
     expect(actualText).toBe(expectedText);
-  }, 10000);
+  });
 
   test("getElementAttribute(...) - jsonKey 'documentationLink'", async () => {
     const expectedAttributeValue = "https://www.selenium.dev/documentation/";
@@ -67,23 +70,23 @@ describe("Testing PageObject methods on Selenium Documentation page", () => {
       await testPageObjectMethods.getDocumentationLinkAttribute(attribute);
 
     expect(actualAttributeValue).toBe(expectedAttributeValue);
-  }, 10000);
+  });
 
   test("clickElement(...) - jsonKey 'pythonTabBtn'", async () => {
     await testPageObjectMethods.clickPythonTabButton();
-  }, 10000);
+  });
 
   test("clickElement(...) - jsonKey 'pythonTabBtn'", async () => {
     await testPageObjectMethods.clickPythonTabButton();
-  }, 10000);
+  });
 
   test("waitForElementvisible(...) - jsonKey 'alertHeading'", async () => {
     const result = await testPageObjectMethods.isAlertHeadingVisible();
     expect(result).not.toBeNull();
-  }, 10000);
+  });
 
   test("moveToElement(...) - jsonKey 'aboutThisDocumentationSubTitleLink'", async () => {
     await testPageObjectMethods.scrollToAboutThisDoc();
     await new Promise((resolve) => setTimeout(resolve, 4000));
-  }, 10000);
+  });
 });
