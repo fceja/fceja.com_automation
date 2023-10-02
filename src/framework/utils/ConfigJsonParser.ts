@@ -28,7 +28,6 @@ export default class ConfigJsonParser {
   };
 
   constructor() {
-    // this.startUp();
     this.getConfigFilePathArg();
     this.validateConfigFilePathArg();
     this.parseConfigFile();
@@ -49,15 +48,10 @@ export default class ConfigJsonParser {
      *   - tsc && node {path_to_test_file} CONFIG_FILE_PATH_ARG={path_to_config_file}
      *   - tsc && node dist/frontend/tests/firstTest.js CONFIG_FILE_PATH_ARG=configs/localConfig.json
      */
-    // get 'testEnvironmentOptions' cli argument
-    const configFilePathArg = process.argv.find((arg) =>
-      arg.startsWith("--testEnvironmentOptions=")
-    );
-
     // parse argument for config file path
-    const configFilePath = configFilePathArg?.split("CONFIG_FILE_PATH_ARG:")[1];
+    const configFilePath = process.env.CONFIG_FILE_PATH_ARG;
 
-    // validate 'CONFIG_FILE_PATH_ARG' arg was set in cli command
+    // validate 'CONFIG_FILE_PATH_ARG' file path
     if (!configFilePath) {
       throw new Error(
         `${addConsoleColorCode(
@@ -67,13 +61,13 @@ export default class ConfigJsonParser {
       );
     }
 
-    // store config file path
+    // store
     this.CONFIG_FILE_PATH = configFilePath;
   }
 
   parseConfigFile() {
     /*
-     * - Parse and stores config file json props in instance
+     * - Parse and store config file props in instance
      */
     const configDataJson = require(this.CONFIG_FILE_PATH);
 
