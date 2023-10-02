@@ -16,7 +16,6 @@ beforeAll(async () => {
   testPageObjectMethods = new TestPageObjectMethods(testing.webDriver);
 
   testing.webDriver.get("https://www.selenium.dev/documentation/");
-  await new Promise((resolve) => setTimeout(resolve, 2000));
 });
 
 afterAll(async () => {
@@ -84,6 +83,5 @@ describe("Test PageObject methods", () => {
 
   test("moveToElement(...) - jsonKey 'aboutThisDocumentationSubTitleLink'", async () => {
     await testPageObjectMethods.scrollToAboutThisDoc();
-    await new Promise((resolve) => setTimeout(resolve, 4000));
   });
 });

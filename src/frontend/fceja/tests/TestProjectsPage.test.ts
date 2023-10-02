@@ -15,13 +15,10 @@ beforeAll(async () => {
 
   projectPageObject = new ProjectsPageObject(testProjectPage.webDriver);
   testProjectPage.webDriver.get("http://localhost:3000");
-
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 });
 
 afterAll(async () => {
   await testProjectPage.tearDown();
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 });
 
 describe("Test projects page", () => {
