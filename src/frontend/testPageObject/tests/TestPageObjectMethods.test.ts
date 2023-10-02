@@ -23,7 +23,7 @@ afterAll(async () => {
   await testing.tearDown();
 });
 
-describe("Testing PageObject methods on Selenium Documentation page", () => {
+describe("Test PageObject methods", () => {
   test("getElementText(...) -  jsonKey 'title'", async () => {
     const expectedText = "The Selenium Browser Automation Project";
 

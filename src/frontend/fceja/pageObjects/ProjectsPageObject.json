@@ -1,0 +1,6 @@
+{
+    "greeting-text": {
+        "locatorType":"xpath",
+        "locator":"//p[@id='greeting-text']"
+    }
+}
