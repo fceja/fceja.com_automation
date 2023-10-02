@@ -1,0 +1,34 @@
+{
+  "title": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, 'td-content')]/h1"
+  },
+  "paragraphs": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, 'td-content')]/p"
+  },
+  "subTitleParagraph": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@class, 'entry')]/h5/a[contains(text(), '{0}')]/../following-sibling::p"
+  },
+  "documentationLink": {
+    "locatorType": "xpath",
+    "locator": "//main[contains(@role, 'main')]//li/a[contains(text(), Documentation)]"
+  },
+  "pythonTabBtn": {
+    "locatorType": "xpath",
+    "locator": "//button[contains(@class, 'nav-link persistLang-Python')]"
+  },
+  "dynamicPythonTabBtn": {
+    "locatorType": "xpath",
+    "locator": "//button[contains(@class, '{0}}')]"
+  },
+  "alertHeading": {
+    "locatorType": "xpath",
+    "locator": "//h4[contains(@class, 'alert-heading text-center m-0')]"
+  },
+  "aboutThisDocumentationSubTitleLink": {
+    "locatorType": "xpath",
+    "locator": "//h5/a[contains(text(), 'About this documentation')]"
+  }
+}
