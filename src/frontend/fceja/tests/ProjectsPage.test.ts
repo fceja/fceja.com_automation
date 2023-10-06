@@ -1,5 +1,7 @@
-import { TestObject } from "../../../framework/frontEnd/TestObject";
 import { ProjectsPageObject } from "../pageObjects/ProjectsPageObject";
+import { TestObject } from "../../../framework/frontEnd/TestObject";
+
+const envPropsJson = require(`../../../properties/${process.env.ENVIRONMENT}.json`);
 
 class TestProjectsPage extends TestObject {
   constructor() {
@@ -14,7 +16,8 @@ beforeAll(async () => {
   await testProjectPage.startUp();
 
   projectPageObject = new ProjectsPageObject(testProjectPage.webDriver);
-  testProjectPage.webDriver.get("http://localhost:3000");
+
+  testProjectPage.webDriver.get(envPropsJson.fceja.url);
 });
 
 afterAll(async () => {
@@ -25,8 +28,9 @@ describe("Test projects page", () => {
   test("Validate greetings text", async () => {
     const exectedText = "Greetings, FC projects down below.";
 
-    const result = await projectPageObject.getGreetingText();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const resultHere = await projectPageObject.getGreetingText();
 
-    expect(result).toBe(exectedText);
+    expect(resultHere).toBe(exectedText);
   });
 });

@@ -1,6 +1,8 @@
 import { TestObject } from "../../../framework/frontEnd/TestObject";
 import { TestPageObjectMethods } from "../pageObjects/TestPageObjectMethods";
 
+const envPropsJson = require(`../../../properties/${process.env.ENVIRONMENT}.json`);
+
 class jestTests extends TestObject {
   constructor() {
     super();
@@ -15,7 +17,7 @@ beforeAll(async () => {
 
   testPageObjectMethods = new TestPageObjectMethods(testing.webDriver);
 
-  testing.webDriver.get("https://www.selenium.dev/documentation/");
+  testing.webDriver.get(envPropsJson.testPageObject.url);
 });
 
 afterAll(async () => {
