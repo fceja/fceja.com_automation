@@ -1,6 +1,10 @@
 {
-    "greeting-text": {
-        "locatorType":"xpath",
-        "locator":"//p[@id='greeting-text']"
-    }
+  "greeting_text": {
+    "locatorType": "xpath",
+    "locator": "//p[@id='greeting-text']"
+  },
+  "cards_text": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@id, 'card') and contains(@class, 'card')]"
+  }
 }

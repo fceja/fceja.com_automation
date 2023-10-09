@@ -210,13 +210,16 @@ export class PageObject {
     try {
       const elems = await this.getElements(jsonKey);
 
-      const stringPromises = elems.map(async (elem) => {
-        return await elem.getText();
-      });
+      let elemObjs: string[] = [];
 
-      const stringOutput = await Promise.all(stringPromises);
+      await Promise.all(
+        elems.map(async (elem) => {
+          const resultText = await elem.getText();
+          elemObjs.push(resultText);
+        })
+      );
 
-      return stringOutput;
+      return elemObjs;
     } catch (error) {
       console.error(`${error}`);
 

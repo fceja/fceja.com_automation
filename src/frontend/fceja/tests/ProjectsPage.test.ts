@@ -1,3 +1,4 @@
+import { CardCarouselCardData as expectedCardData } from "./CardData";
 import { ProjectsPageObject } from "../pageObjects/ProjectsPageObject";
 import { TestObject } from "../../../framework/frontEnd/TestObject";
 
@@ -25,13 +26,24 @@ afterAll(async () => {
 });
 
 describe("Test projects page", () => {
-  test("Validate greetings text", async () => {
+  test("Validate actual greetings text matches expected text", async () => {
     const exectedText = "Greetings, FC projects down below.";
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const resultHere = await projectPageObject.getGreetingText();
+    const actualText = await projectPageObject.getGreetingText();
+    expect(actualText).toBe(exectedText);
+  });
 
-    expect(resultHere).toBe(exectedText);
+  test("Validate actual card data matches expected card data", async () => {
+    const actualCardsData = await projectPageObject.getCardData();
+
+    expectedCardData.forEach((expectedCardData, index) => {
+      const actualCardData = actualCardsData[index].split("\n");
+
+      const actualTitle = actualCardData[0];
+      const actualDescription = actualCardData[1];
+
+      expect(actualTitle).toBe(expectedCardData.title);
+      expect(actualDescription).toBe(expectedCardData.description);
+    });
   });
 });
-
