@@ -34,3 +34,4 @@ describe("Test projects page", () => {
     expect(resultHere).toBe(exectedText);
   });
 });
+
