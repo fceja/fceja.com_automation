@@ -2,7 +2,7 @@
   "fceja": {
     "url": "http://localhost:8080"
   },
-  "testPageObject": {
+  "selenium": {
     "url": "https://www.selenium.dev/documentation/"
   }
 }

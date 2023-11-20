@@ -1,5 +1,5 @@
 import { TestObject } from "../../../framework/frontEnd/TestObject";
-import { TestPageObjectMethods } from "../pageObjects/TestPageObjectMethods";
+import { TestPageObjectMethods } from "../pageObjects/DocumentationPageObject";
 
 const envPropsJson = require(`../../../properties/${process.env.ENVIRONMENT}.json`);
 
@@ -17,7 +17,7 @@ beforeAll(async () => {
 
   testPageObjectMethods = new TestPageObjectMethods(testing.webDriver);
 
-  testing.webDriver.get(envPropsJson.testPageObject.url);
+  testing.webDriver.get(envPropsJson.selenium.url);
 });
 
 afterAll(async () => {
