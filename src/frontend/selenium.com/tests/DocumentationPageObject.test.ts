@@ -1,7 +1,7 @@
-import { TestObject } from "../../../framework/frontEnd/TestObject";
-import { TestPageObjectMethods } from "../pageObjects/DocumentationPageObject";
+import { TestObject } from "@framework/frontEnd/TestObject";
+import { TestPageObjectMethods } from "@selenium.com/pageObjects/DocumentationPageObject";
 
-const envPropsJson = require(`../../../properties/${process.env.ENVIRONMENT}.json`);
+const envPropsJson = require(`@properties/${process.env.ENVIRONMENT}.json`);
 
 class jestTests extends TestObject {
   constructor() {

@@ -1,7 +1,9 @@
 import { Builder, WebDriver } from "selenium-webdriver";
 
-import ConfigJsonParser, { ConfigJsonData } from "../utils/ConfigJsonParser";
-import Logger from "../utils/Logger";
+import ConfigJsonParser, {
+  ConfigJsonData,
+} from "@framework/utils/ConfigJsonParser";
+import Logger from "@framework/utils/Logger";
 
 export class TestObject {
   private webDriverBuilder!: Builder;

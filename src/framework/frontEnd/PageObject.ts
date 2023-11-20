@@ -1,11 +1,11 @@
 import "jest-expect-message";
 import { By, WebDriver, until } from "selenium-webdriver";
 
-import addConsoleColorCode from "../utils/ConsoleColorsCodes";
+import addConsoleColorCode from "@framework/utils/ConsoleColorsCodes";
 import {
   LoadPageObjectJsonData,
   PageObjectJsonData,
-} from "../utils/LoadPageObjectJsonData";
+} from "@framework/utils/LoadPageObjectJsonData";
 
 export class PageObject {
   private pageObjectJsonData!: PageObjectJsonData;

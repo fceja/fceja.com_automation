@@ -1,8 +1,9 @@
 import { CardCarouselCardData as expectedCardData } from "./CardData";
-import { ProjectsPageObject } from "../pageObjects/ProjectsPageObject";
-import { TestObject } from "../../../framework/frontEnd/TestObject";
 
-const envPropsJson = require(`../../../properties/${process.env.ENVIRONMENT}.json`);
+import { ProjectsPageObject } from "@fceja.com/pageObjects/ProjectsPageObject";
+import { TestObject } from "@framework/frontEnd/TestObject";
+
+const envPropsJson = require(`@properties/${process.env.ENVIRONMENT}.json`);
 
 class TestProjectsPage extends TestObject {
   constructor() {
