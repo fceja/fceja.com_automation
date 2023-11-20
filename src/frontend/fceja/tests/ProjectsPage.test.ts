@@ -27,7 +27,7 @@ afterAll(async () => {
 
 describe("Test projects page", () => {
   test("Validate actual greetings text matches expected text", async () => {
-    const exectedText = "Greetings, FC projects down below.";
+    const exectedText = "Greetings, fceja projects down below.";
 
     const actualText = await projectPageObject.getGreetingText();
     expect(actualText).toBe(exectedText);

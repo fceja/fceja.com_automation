@@ -1,6 +1,6 @@
 {
   "fceja": {
-    "url": "http://localhost:3000"
+    "url": "http://localhost:8080"
   },
   "testPageObject": {
     "url": "https://www.selenium.dev/documentation/"
