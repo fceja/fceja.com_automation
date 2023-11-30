@@ -325,15 +325,10 @@ export class PageObject {
 
       return elem.getText();
     } catch (error) {
-      console.error(`${error}`);
+      // TODO - use logging instead of console.error()
+      // console.error(`${error}`);
 
-      const failedMessage = addConsoleColorCode("red", "Failed to execute");
-      const erroredMethod = addConsoleColorCode(
-        "magenta",
-        "PageObject.getDynamicElementText(...)"
-      );
-
-      throw new Error(`${failedMessage} -> ${erroredMethod}`);
+      return null;
     }
   }
 }

@@ -34,17 +34,15 @@ describe("Test projects page", () => {
     expect(actualText).toBe(exectedText);
   });
 
-  test("Validate actual card data matches expected card data", async () => {
-    const actualCardsData = await projectPageObject.getCardData();
-
-    expectedCardData.forEach((expectedCardData, index) => {
-      const actualCardData = actualCardsData[index].split("\n");
-
-      const actualTitle = actualCardData[0];
-      const actualDescription = actualCardData[1];
-
-      expect(actualTitle).toBe(expectedCardData.title);
-      expect(actualDescription).toBe(expectedCardData.description);
-    });
+  test("Validate actual card data populated matches expected card data", async () => {
+    for (const [index, expected] of expectedCardData.entries()) {
+      const actualCardsData = await projectPageObject.getCardDataByIndex(index);
+      expect(actualCardsData.cardDescription).toBe(
+        expected.cardDetails.description
+      );
+      expect(actualCardsData.cardTitle).toBe(expected.cardDetails.title);
+      expect(actualCardsData.cardGitHubLink).toBe(expected.webLinks.gitHubLink);
+      expect(actualCardsData.cardUrlLink).toBe(expected.webLinks.urlLink);
+    }
   });
 });
