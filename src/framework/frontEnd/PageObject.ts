@@ -17,8 +17,14 @@ export class PageObject {
     this.pageObjectJsonData = LoadPageObjectJsonData.loadPageObjectJsonData();
   }
 
-  private formatLocator(locatorToFormat: string, ...args: string[]): string {
-    return locatorToFormat.replace(/{(\d+)}/g, (_, index) => args[index] || "");
+  private formatLocator(
+    locatorToFormat: string,
+    ...args: (string | number)[]
+  ): string {
+    return locatorToFormat.replace(
+      /{(\d+)}/g,
+      (_, index) => String(args[index]) || ""
+    );
   }
 
   private getByLocator(locatorType: string, locator: string): By {
@@ -92,6 +98,23 @@ export class PageObject {
       );
 
       throw new Error(`${failedMessage} -> ${erroredMethod}`);
+    }
+  }
+
+  protected async getDynamicElementAttribute(
+    jsonKey: string,
+    attribute: string,
+    ...locatorArgs: (string | number)[]
+  ) {
+    try {
+      const elem = await this.getDynamicElement(jsonKey, ...locatorArgs);
+
+      return elem.getAttribute(attribute);
+    } catch (error) {
+      // TODO - use logging instead of console.error()
+      // console.error(`${error}`);
+
+      return null;
     }
   }
 
@@ -182,7 +205,7 @@ export class PageObject {
     }
   }
 
-  private async getElements(jsonKey: string) {
+  protected async getElements(jsonKey: string) {
     const [locatorType, locator] = this.getLocatorDataByJsonKey(jsonKey);
 
     try {
@@ -254,7 +277,10 @@ export class PageObject {
     }
   }
 
-  protected async getDynamicElement(jsonKey: string, ...locatorArgs: string[]) {
+  protected async getDynamicElement(
+    jsonKey: string,
+    ...locatorArgs: (string | number)[]
+  ) {
     const [locatorType, locatorToFormat] =
       this.getLocatorDataByJsonKey(jsonKey);
 
@@ -292,7 +318,7 @@ export class PageObject {
 
   protected async getDynamicElementText(
     jsonKey: string,
-    ...locatorArgs: string[]
+    ...locatorArgs: string[] | number[]
   ) {
     try {
       const elem = await this.getDynamicElement(jsonKey, ...locatorArgs);
