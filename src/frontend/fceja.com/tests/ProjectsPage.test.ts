@@ -1,4 +1,4 @@
-import { CardCarouselCardData as expectedCardData } from "./CardData";
+import { CarouselCardData as expectedCardData } from "./CardData";
 
 import { ProjectsPageObject } from "@fceja.com/pageObjects/ProjectsPageObject";
 import { TestObject } from "@framework/frontEnd/TestObject";

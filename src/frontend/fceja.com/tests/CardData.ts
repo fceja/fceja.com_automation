@@ -1,11 +1,6 @@
-interface CardDataItem {
-  imagePath: string;
-  title: string;
-  description: string;
-  urlLink: string;
-}
+import { CardDataType } from "@fceja.com/types";
 
-export const CardCarouselCardData: ReadonlyArray<CardDataItem> = Object.freeze([
+export const CarouselCardData: Readonly<CardDataType> = Object.freeze([
   {
     imagePath: "assets/bingo.png",
     title: "fceja.com",
