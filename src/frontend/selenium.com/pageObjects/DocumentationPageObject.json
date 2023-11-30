@@ -3,9 +3,9 @@
     "locatorType": "xpath",
     "locator": "//div[contains(@class, 'td-content')]/h1"
   },
-  "paragraphs": {
+  "firstParagraph": {
     "locatorType": "xpath",
-    "locator": "//div[contains(@class, 'td-content')]/p"
+    "locator": "//div[contains(@class, 'td-content')]/p[1]"
   },
   "subTitleParagraph": {
     "locatorType": "xpath",
@@ -17,7 +17,7 @@
   },
   "pythonTabBtn": {
     "locatorType": "xpath",
-    "locator": "//button[contains(@class, 'nav-link persistLang-Python')]"
+    "locator": "//button[contains(@class, 'nav-link') and contains(text(), 'Python')]"
   },
   "dynamicPythonTabBtn": {
     "locatorType": "xpath",

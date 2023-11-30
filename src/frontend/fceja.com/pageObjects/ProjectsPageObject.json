@@ -6,5 +6,29 @@
   "cards_text": {
     "locatorType": "xpath",
     "locator": "//div[contains(@id, 'card') and contains(@class, 'card')]"
+  },
+  "card": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@data-testid, 'card')]"
+  },
+  "cards": {
+    "locatorType": "xpath",
+    "locator": "//div[contains(@data-testid, 'card')]"
+  },
+  "cardTitle": {
+    "locatorType": "xpath",
+    "locator": "//div[@id='card-{0}']/div/p[contains(@class, 'title')]"
+  },
+  "cardDescription": {
+    "locatorType": "xpath",
+    "locator": "//div[@id='card-{0}']/div/p[contains(@class, 'description')]"
+  },
+  "cardUrlLink": {
+    "locatorType": "xpath",
+    "locator": "//div[@id='card-{0}']/div/a[contains(@class, 'url-link')]"
+  },
+  "cardGitHubLink": {
+    "locatorType": "xpath",
+    "locator": "//div[@id='card-{0}']/div/a[contains(@class, 'github-link')]"
   }
 }

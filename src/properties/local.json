@@ -1,6 +1,6 @@
 {
   "fceja": {
-    "url": "http://localhost:8080"
+    "url": "https://fceja.com"
   },
   "selenium": {
     "url": "https://www.selenium.dev/documentation/"

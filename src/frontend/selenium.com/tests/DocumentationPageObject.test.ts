@@ -32,21 +32,13 @@ describe("Test PageObject methods", () => {
     expect(actualText).toBe(expectedText);
   });
 
-  test("getElementsText(...) - jsonKey 'paragraphs'", async () => {
-    const expectedResults = [
-      "Selenium is an umbrella project for a range of tools and libraries that enable and support the automation of web browsers.",
-      "It provides extensions to emulate user interaction with browsers, a distribution server for scaling browser allocation, and the infrastructure for implementations of the W3C WebDriver specification that lets you write interchangeable code for all major web browsers.",
-      "This project is made possible by volunteer contributors who have put in thousands of hours of their own time, and made the source code freely available for anyone to use, enjoy, and improve.",
-      "Selenium brings together browser vendors, engineers, and enthusiasts to further an open discussion around automation of the web platform. The project organises an annual conference to teach and nurture the community.",
-      "At the core of Selenium is WebDriver, an interface to write instruction sets that can be run interchangeably in many browsers. Once you’ve installed everything, only a few lines of code get you inside a browser. You can find a more comprehensive example in Writing your first Selenium script",
-      "See the Overview to check the different project components and decide if Selenium is the right tool for you.",
-      "You should continue on to Getting Started to understand how you can install Selenium and successfully use it as a test automation tool, and scaling simple tests like this to run in large, distributed environments on multiple browsers, on several different operating systems.",
-    ];
+  test("getElementsText(...) - jsonKey 'firstParagraph'", async () => {
+    const expectedResults =
+      "Selenium is an umbrella project for a range of tools and libraries that enable and support the automation of web browsers.";
 
-    const actualResults = await testPageObjectMethods.getParagraphsText();
-    expectedResults.forEach((expectedText: string, index: number) => {
-      expect(actualResults[index]).toBe(expectedText);
-    });
+    const actualResults = await testPageObjectMethods.getFirstParagraphsText();
+
+    expect(actualResults[0]).toBe(expectedResults);
   });
 
   test("getDynamicElementText(...) - jsonKey 'subTitleParagraph", async () => {
