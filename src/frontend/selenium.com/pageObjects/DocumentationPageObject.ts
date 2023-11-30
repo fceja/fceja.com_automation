@@ -12,8 +12,8 @@ export class TestPageObjectMethods extends PageObject {
     return elemText;
   }
 
-  async getParagraphsText() {
-    const elements = await this.getElementsText("paragraphs");
+  async getFirstParagraphsText() {
+    const elements = await this.getElementsText("firstParagraph");
     return elements;
   }
 
