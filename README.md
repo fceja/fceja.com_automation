@@ -13,8 +13,6 @@ Utilizes Selenium WebDriver, TypeScript, and the Jest framework.
 3. At project root, run:
    - ```npm install```
    - This will install all project package dependencies
-4. At project root, run:
-   - ```todo```
 
 # Technologies & Tools
 <p>
